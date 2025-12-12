@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "590e546b42c66599b8c076d895a2c39e",
+    "content-hash": "eecddc5ff5edcb8c29c6940f04abad4f",
     "packages": [
         {
             "name": "composer/installers",
@@ -1013,6 +1013,24 @@
                 }
             ],
             "time": "2025-04-30T23:37:27+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/add-bootstrap-tailwind-css",
+            "version": "1.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/add-bootstrap-tailwind-css/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/add-bootstrap-tailwind-css.zip?timestamp=1731233531"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/add-bootstrap-tailwind-css/"
         },
         {
             "name": "wpackagist-plugin/woocommerce",

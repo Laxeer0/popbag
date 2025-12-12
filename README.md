@@ -85,6 +85,21 @@ Il database MariaDB utilizza un volume nominato `db_data`, conservando i dati tr
 
 - La pipeline Jenkins (vedi `Jenkinsfile`) esegue `composer install`, lint con Pint, build dell’immagine di deploy e push verso il registry definito in `DOCKER_REGISTRY`. Imposta l’ID credenziali Docker in `REGISTRY_CREDENTIALS` e, se vuoi avviare automaticamente l’ambiente via Compose, esporta `DEPLOY_ON_BUILD=true` sul job.
 
+## Tema Tailwind
+
+- Il tema `Poppins Tailwind` vive in `web/app/themes/poppins-tailwind`. Include un toolchain Tailwind (vedi `package.json`) e file sorgenti CSS in `resources/css/main.css`.
+- Per lavorare sugli stili:
+
+  ```bash
+  cd web/app/themes/poppins-tailwind
+  npm install          # solo la prima volta
+  npm run dev          # watch in locale
+  npm run build        # genera dist/css/main.css minificato
+  ```
+
+- Il tema enqueua automaticamente `dist/css/main.css` (prodotto dalla build) e offre template minimal (front-page, header, footer) già ottimizzati per l’ecommerce.
+- Attivalo da WP Admin (Aspetto → Temi) oppure modifica `.env`/WP CLI per selezionare `poppins-tailwind`.
+
 ## Stay Connected
 
 - Join us on Discord by [sponsoring us on GitHub](https://github.com/sponsors/roots)

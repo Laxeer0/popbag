@@ -41,7 +41,8 @@
     "roots/wordpress": "6.9",
     "roots/wp-config": "1.0.0",
     "wpackagist-theme/twentytwentyfive": "^1.0",
-    "wpackagist-plugin/woocommerce": "^8"
+    "wpackagist-plugin/woocommerce": "^8",
+    "wpackagist-plugin/add-bootstrap-tailwind-css": "^1.0"
   },
   "require-dev": {
     "laravel/pint": "^1.18"
@@ -66,6 +67,9 @@
   },
   "scripts": {
     "lint": "pint --test",
-    "lint:fix": "pint"
+    "lint:fix": "pint",
+    "test": [
+      "@lint"
+    ]
   }
 }

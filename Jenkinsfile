@@ -26,9 +26,9 @@ pipeline {
             }
         }
 
-        stage('Lint') {
+        stage('Test') {
             steps {
-                sh 'vendor/bin/pint --test'
+                sh 'composer run test'
             }
         }
 
