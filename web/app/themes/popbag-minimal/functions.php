@@ -37,8 +37,48 @@ function popbag_enqueue_assets(): void {
 		[],
 		$cache_bust
 	);
+
+	$header_js_path = get_template_directory() . '/assets/js/header.js';
+	if (file_exists($header_js_path)) {
+		wp_enqueue_script(
+			'popbag-header',
+			get_template_directory_uri() . '/assets/js/header.js',
+			[],
+			filemtime($header_js_path),
+			true
+		);
+	}
 }
 add_action('wp_enqueue_scripts', 'popbag_enqueue_assets');
+
+/**
+ * Theme asset helpers.
+ */
+function popbag_asset_uri(string $relative_path): string {
+	$relative_path = ltrim($relative_path, '/');
+	return get_template_directory_uri() . '/' . $relative_path;
+}
+
+/**
+ * Render site logo (navbar).
+ *
+ * Neutral component: uses <img> and does not alter the SVG.
+ */
+function popbag_render_site_logo(string $wrapper_class = '', string $img_class = 'h-12 w-auto md:h-14 lg:h-16'): void {
+	$logo_src = popbag_asset_uri('assets/images/logo-orizzontale.svg');
+	$site_name = get_bloginfo('name');
+	?>
+	<a href="<?php echo esc_url(home_url('/')); ?>" class="<?php echo esc_attr(trim('flex items-center ' . $wrapper_class)); ?>" aria-label="<?php echo esc_attr($site_name); ?>">
+		<img
+			src="<?php echo esc_url($logo_src); ?>"
+			alt="<?php echo esc_attr($site_name); ?>"
+			class="<?php echo esc_attr($img_class); ?>"
+			loading="eager"
+			decoding="async"
+		/>
+	</a>
+	<?php
+}
 
 /**
  * Disable WooCommerce default styles to rely on Tailwind layer.
@@ -107,7 +147,15 @@ add_action('init', 'popbag_register_cache_invalidation');
 /**
  * Cached product helpers.
  */
+function popbag_has_woocommerce(): bool {
+	return function_exists('wc_get_products') || class_exists('WooCommerce');
+}
+
 function popbag_get_new_arrivals(int $limit = 6) {
+	if (!popbag_has_woocommerce()) {
+		return [];
+	}
+
 	return popbag_cache_get(
 		'new_arrivals_' . $limit,
 		1800,
@@ -124,6 +172,10 @@ function popbag_get_new_arrivals(int $limit = 6) {
 }
 
 function popbag_get_best_sellers(int $limit = 6) {
+	if (!popbag_has_woocommerce()) {
+		return [];
+	}
+
 	return popbag_cache_get(
 		'best_sellers_' . $limit,
 		3600,

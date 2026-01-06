@@ -17,7 +17,7 @@ $collection_map = [
 ?>
 
 <main>
-	<section class="relative overflow-hidden bg-[#F9E2B0]">
+	<section class="relative overflow-hidden bg-white">
 		<div class="mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center gap-10 px-6 py-16 md:flex-row md:items-center">
 			<div class="max-w-2xl space-y-6">
 				<p class="text-sm uppercase tracking-[0.3em] text-[#1F525E]">Minimal Premium</p>
