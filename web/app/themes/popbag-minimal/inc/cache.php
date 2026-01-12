@@ -45,6 +45,19 @@ add_action('init', static function (): void {
 	add_action('woocommerce_update_product', 'popbag_bump_cache_version');
 	add_action('woocommerce_product_set_stock', 'popbag_bump_cache_version');
 
+	// Bags (CPT poppins_bag).
+	add_action('save_post_poppins_bag', 'popbag_bump_cache_version');
+	add_action('deleted_post', static function (int $post_id): void {
+		if ('poppins_bag' === get_post_type($post_id)) {
+			popbag_bump_cache_version();
+		}
+	});
+	add_action('transition_post_status', static function ($new_status, $old_status, $post): void {
+		if ($post instanceof WP_Post && 'poppins_bag' === $post->post_type && $new_status !== $old_status) {
+			popbag_bump_cache_version();
+		}
+	}, 10, 3);
+
 	// Product categories.
 	$term_bump = static function ($term_id, $tt_id, $taxonomy): void {
 		if ('product_cat' === $taxonomy) {

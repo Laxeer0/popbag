@@ -9,6 +9,22 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Disabilita Gutenberg (block editor) per il post type delle bag.
+ */
+add_filter(
+    'use_block_editor_for_post_type',
+    static function (bool $use_block_editor, string $post_type): bool {
+        if ($post_type === 'poppins_bag') {
+            return false;
+        }
+
+        return $use_block_editor;
+    },
+    10,
+    2,
+);
+
+/**
  * Registra il Custom Post Type "Bag".
  */
 add_action(
