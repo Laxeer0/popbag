@@ -14,9 +14,7 @@ if (!defined('ABSPATH')) {
 add_filter(
     'use_block_editor_for_post_type',
     static function (bool $use_block_editor, string $post_type): bool {
-        // We rely on classic WooCommerce product data panels (tabs/panels) for bag assignment.
-        // Disable block editor for both bags and products to ensure the UI is visible.
-        if ($post_type === 'poppins_bag' || $post_type === 'product') {
+        if ($post_type === 'poppins_bag') {
             return false;
         }
 
@@ -24,19 +22,6 @@ add_filter(
     },
     10,
     2,
-);
-
-/**
- * Ensure WooCommerce "new product editor" (block-based) is disabled.
- * Our UI is implemented via classic product data tabs/panels.
- */
-add_filter(
-    'woocommerce_admin_features',
-    static function (array $features): array {
-        return array_values(array_diff($features, ['product_block_editor']));
-    },
-    10,
-    1,
 );
 
 /**
@@ -160,6 +145,13 @@ add_action(
         }
 
         $slug     = sanitize_title($_POST['poppins_bag_slug'] ?? '');
+        // Se non fornito (es. import/quick edit), genera uno slug stabile.
+        if ($slug === '') {
+            $slug = sanitize_title($post->post_title);
+        }
+        if ($slug === '') {
+            $slug = 'bag-' . $post_id;
+        }
         $capacity = max(1, (int) ($_POST['poppins_bag_capacity'] ?? 1));
         $limits   = [];
 
@@ -192,15 +184,22 @@ function poppins_get_bags(): array
         [
             'post_type'      => 'poppins_bag',
             'posts_per_page' => -1,
-            'post_status'    => 'publish',
+            // In admin vogliamo vedere anche bag non ancora pubblicate, altrimenti la lista risulta vuota.
+            'post_status'    => is_admin() ? ['publish', 'private', 'draft', 'pending', 'future'] : 'publish',
+            'orderby'        => 'title',
+            'order'          => 'ASC',
         ],
     );
 
     $bags = [];
     foreach ($query->posts as $bag_post) {
-        $slug = get_post_meta($bag_post->ID, '_poppins_bag_slug', true);
-        if (!$slug) {
-            continue;
+        $slug = (string) get_post_meta($bag_post->ID, '_poppins_bag_slug', true);
+        // Fallback per bag create/importate senza meta: usa lo slug del post o un ID stabile.
+        if ($slug === '') {
+            $slug = (string) ($bag_post->post_name ?? '');
+        }
+        if ($slug === '') {
+            $slug = 'bag-' . (int) $bag_post->ID;
         }
 
         $bags[$slug] = [
