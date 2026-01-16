@@ -89,7 +89,6 @@ while (have_posts()) :
 								</div>
 								<div class="popbag-product-card__body">
 									<p class="popbag-product-card__title"><?php echo esc_html($product->get_name()); ?></p>
-									<span class="popbag-product-card__badge"><?php echo wp_kses_post($product->get_price_html()); ?></span>
 								</div>
 							</button>
 
