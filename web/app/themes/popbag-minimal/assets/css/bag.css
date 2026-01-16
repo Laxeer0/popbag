@@ -210,7 +210,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .popbag-modal__select {
@@ -225,6 +225,103 @@
   cursor: pointer;
 }
 .popbag-modal__select.is-selected { background: #FF2030; }
+
+/* Lightbox */
+.popbag-lightbox[hidden] { display: none !important; }
+.popbag-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+}
+.popbag-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.70);
+}
+.popbag-lightbox__dialog {
+  position: relative;
+  width: min(1100px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  margin: 12px auto;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+  padding: 14px;
+}
+.popbag-lightbox__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.popbag-lightbox__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 55, 69, 0.15);
+  background: #fff;
+}
+.popbag-lightbox__btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 55, 69, 0.15);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 900;
+  color: #003745;
+}
+.popbag-lightbox__zoom {
+  font-weight: 900;
+  color: #003745;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  min-width: 56px;
+  text-align: center;
+}
+.popbag-lightbox__close {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 55, 69, 0.15);
+  background: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+.popbag-lightbox__stage {
+  margin-top: 12px;
+  height: min(72vh, 720px);
+  overflow: auto;
+  border-radius: 16px;
+  background: rgba(0, 55, 69, 0.04);
+  border: 1px solid rgba(0, 55, 69, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popbag-lightbox__stage img {
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+  transition: transform 100ms ease;
+  cursor: zoom-in;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+.popbag-lightbox__stage img.is-zoomed { cursor: grab; }
+.popbag-lightbox__stage img.is-dragging { cursor: grabbing; }
+.popbag-lightbox__hint {
+  margin: 10px 4px 0;
+  color: #1F525E;
+  font-size: 12px;
+}
 
 @media (max-width: 640px) {
   .popbag-bag-title { max-width: 44vw; font-size: 20px; }

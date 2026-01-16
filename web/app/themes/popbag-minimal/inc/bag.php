@@ -321,17 +321,6 @@ add_action('woocommerce_before_calculate_totals', static function (WC_Cart $cart
 }, 20, 1);
 
 /**
- * Replace cart item name with bag label for bag items.
- */
-add_filter('woocommerce_cart_item_name', static function (string $name, array $cart_item, string $cart_item_key): string {
-	$meta = $cart_item[POPBAG_BAG_CART_META_KEY] ?? null;
-	if (!is_array($meta) || empty($meta['bag_label'])) {
-		return $name;
-	}
-	return esc_html((string) $meta['bag_label']);
-}, 10, 3);
-
-/**
  * Show bag metadata under cart item name (cart/checkout).
  */
 add_filter('woocommerce_get_item_data', static function (array $item_data, array $cart_item): array {
@@ -344,6 +333,21 @@ add_filter('woocommerce_get_item_data', static function (array $item_data, array
 		'key'   => __('Bag', 'popbag-minimal'),
 		'value' => sanitize_text_field((string) $meta['bag_label']),
 	];
+
+	// Edit link (most reliable place in this theme, since cart template prints formatted item data).
+	$bag_post_id = isset($meta['bag_post_id']) ? absint($meta['bag_post_id']) : 0;
+	if ($bag_post_id > 0 && function_exists('is_cart') && is_cart()) {
+		$bag_link = get_permalink($bag_post_id);
+		if ($bag_link) {
+			$selected_ids = isset($meta['selected_product_ids']) ? array_map('absint', (array) $meta['selected_product_ids']) : [];
+			$selected_ids = array_values(array_filter($selected_ids, static fn(int $id): bool => $id > 0));
+			$edit_link = $selected_ids ? add_query_arg(['selected' => implode(',', $selected_ids)], $bag_link) : $bag_link;
+			$item_data[] = [
+				'key'   => __('Modifica', 'popbag-minimal'),
+				'value' => '<a class="text-xs uppercase tracking-[0.14em] text-[#003745] underline underline-offset-4" href="' . esc_url($edit_link) . '">' . esc_html__('Modifica bag', 'popbag-minimal') . '</a>',
+			];
+		}
+	}
 
 	$ids = isset($meta['selected_product_ids']) ? array_map('absint', (array) $meta['selected_product_ids']) : [];
 	if ($ids) {

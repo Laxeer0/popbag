@@ -15,6 +15,14 @@ while (have_posts()) :
 	if (!$back_url) {
 		$back_url = post_type_exists('poppins_bag') ? (string) get_post_type_archive_link('poppins_bag') : home_url('/');
 	}
+
+	// Prefill selection when coming from cart "Modifica bag" link.
+	$prefill_ids = [];
+	if (isset($_GET['selected'])) {
+		$raw = sanitize_text_field((string) $_GET['selected']);
+		$parts = array_filter(array_map('trim', explode(',', $raw)));
+		$prefill_ids = array_values(array_filter(array_map('absint', $parts)));
+	}
 	?>
 
 	<main class="bg-white">
@@ -70,6 +78,7 @@ while (have_posts()) :
 								value="<?php echo esc_attr($product_id); ?>"
 								class="popbag-product-checkbox"
 								data-product-id="<?php echo esc_attr($product_id); ?>"
+								<?php checked(in_array((int) $product_id, $prefill_ids, true)); ?>
 								style="position:absolute;left:-9999px;"
 							/>
 
@@ -160,13 +169,13 @@ while (have_posts()) :
 												<?php endforeach; ?>
 											</dl>
 										<?php endif; ?>
-
-										<div class="popbag-modal__cta">
-											<button type="button" class="popbag-modal__select" data-popbag-modal-select>
-												<?php esc_html_e('Seleziona', 'popbag-minimal'); ?>
-											</button>
-										</div>
 									</div>
+								</div>
+
+								<div class="popbag-modal__cta">
+									<button type="button" class="popbag-modal__select" data-popbag-modal-select>
+										<?php esc_html_e('Seleziona', 'popbag-minimal'); ?>
+									</button>
 								</div>
 							</template>
 						<?php endforeach; ?>
@@ -190,6 +199,24 @@ while (have_posts()) :
 						<button type="button" class="popbag-modal__close" aria-label="<?php echo esc_attr__('Chiudi', 'popbag-minimal'); ?>" data-popbag-modal-close>×</button>
 					</div>
 					<div id="popbag-product-modal-body"></div>
+				</div>
+			</div>
+
+			<div id="popbag-lightbox" class="popbag-lightbox" hidden>
+				<div class="popbag-lightbox__backdrop" data-popbag-lightbox-close></div>
+				<div class="popbag-lightbox__dialog" role="dialog" aria-modal="true" aria-label="<?php echo esc_attr__('Immagine prodotto', 'popbag-minimal'); ?>">
+					<div class="popbag-lightbox__top">
+						<div class="popbag-lightbox__controls" aria-label="<?php echo esc_attr__('Zoom', 'popbag-minimal'); ?>">
+							<button type="button" class="popbag-lightbox__btn" data-popbag-zoom-out aria-label="<?php echo esc_attr__('Riduci zoom', 'popbag-minimal'); ?>">−</button>
+							<span id="popbag-lightbox-zoom" class="popbag-lightbox__zoom">100%</span>
+							<button type="button" class="popbag-lightbox__btn" data-popbag-zoom-in aria-label="<?php echo esc_attr__('Aumenta zoom', 'popbag-minimal'); ?>">+</button>
+						</div>
+						<button type="button" class="popbag-lightbox__close" aria-label="<?php echo esc_attr__('Chiudi', 'popbag-minimal'); ?>" data-popbag-lightbox-close>×</button>
+					</div>
+					<div class="popbag-lightbox__stage" data-popbag-lightbox-stage>
+						<img id="popbag-lightbox-img" src="" alt="" loading="lazy" decoding="async" draggable="false" />
+					</div>
+					<p class="popbag-lightbox__hint"><?php esc_html_e('Suggerimento: usa la rotellina per zoomare.', 'popbag-minimal'); ?></p>
 				</div>
 			</div>
 		</div>
