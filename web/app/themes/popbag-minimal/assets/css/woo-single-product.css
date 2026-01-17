@@ -72,6 +72,70 @@
   color: rgba(0, 55, 69, 0.95);
 }
 
+/* Reviews */
+.single-product .woocommerce-Reviews .commentlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.single-product .woocommerce-Reviews .comment-text .meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(31, 82, 94, 0.9);
+}
+
+.single-product .woocommerce-Reviews .comment-text .description {
+  margin-top: 0.75rem;
+  color: rgba(0, 55, 69, 0.95);
+}
+
+.single-product .woocommerce-Reviews .star-rating {
+  color: #ffb100;
+}
+
+/* Stars UI for the review form (Woo generates .stars links next to select#rating) */
+.single-product .woocommerce-Reviews .comment-form-rating .stars {
+  margin-top: 0.5rem;
+}
+
+.single-product .woocommerce-Reviews .comment-form-rating .stars a {
+  display: inline-block;
+  padding: 0.15rem 0.25rem;
+  text-decoration: none;
+}
+
+/* Slider rating */
+.single-product .woocommerce-Reviews [data-popbag-rating-slider-wrap] .stars {
+  display: none !important; /* hide Woo star UI (shows "1 of 5 stars" when Woo styles are disabled) */
+}
+
+.single-product .woocommerce-Reviews .popbag-rating-select-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.single-product .woocommerce-Reviews .popbag-rating-slider {
+  width: 100%;
+  accent-color: #ff2030;
+}
+
+.single-product .woocommerce-Reviews .popbag-rating-error .popbag-rating-value {
+  border-color: rgba(255, 32, 48, 0.35);
+  background: rgba(255, 32, 48, 0.08);
+  color: rgba(255, 32, 48, 0.95);
+}
+
 /* Gallery rounding without clipping zoom overlays too aggressively */
 .single-product .woocommerce div.product .woocommerce-product-gallery {
   border-radius: 16px;

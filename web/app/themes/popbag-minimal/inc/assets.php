@@ -75,6 +75,12 @@ add_action('wp_enqueue_scripts', static function (): void {
 		if (file_exists($product_css_path)) {
 			wp_enqueue_style('popbag-woo-single-product', get_theme_file_uri($product_css_rel), ['popbag-app'], (string) filemtime($product_css_path));
 		}
+
+		$product_js_rel  = 'assets/js/woo-single-product.js';
+		$product_js_path = get_theme_file_path($product_js_rel);
+		if (file_exists($product_js_path)) {
+			wp_enqueue_script('popbag-woo-single-product', get_theme_file_uri($product_js_rel), [], (string) filemtime($product_js_path), true);
+		}
 	}
 });
 
