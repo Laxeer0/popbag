@@ -1,0 +1,101 @@
+/**
+ * Popbag WooCommerce Single Product styles (scoped).
+ *
+ * Keep minimal and rely on utility classes in templates where possible.
+ */
+
+.single-product .woocommerce div.product .summary .price {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: rgba(0, 55, 69, 0.95);
+}
+
+.single-product .woocommerce div.product .summary .woocommerce-product-details__short-description {
+  color: rgba(31, 82, 94, 0.95);
+}
+
+.single-product .woocommerce div.product form.cart {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.single-product .woocommerce div.product form.cart .quantity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.single-product .woocommerce div.product form.cart .qty {
+  width: 5.5rem;
+  text-align: center;
+}
+
+.single-product .woocommerce div.product form.cart .single_add_to_cart_button {
+  width: 100%;
+}
+
+/* Tabs */
+.single-product .woocommerce-tabs {
+  margin-top: 2.5rem;
+}
+
+.single-product .woocommerce-tabs .wc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(0, 55, 69, 0.1);
+  padding-bottom: 0.75rem;
+}
+
+.single-product .woocommerce-tabs .wc-tabs li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 55, 69, 0.12);
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(0, 55, 69, 0.95);
+}
+
+.single-product .woocommerce-tabs .wc-tabs li.active a {
+  background: rgba(0, 55, 69, 0.06);
+  border-color: rgba(0, 55, 69, 0.18);
+}
+
+.single-product .woocommerce-tabs .wc-tab {
+  padding-top: 1.25rem;
+  color: rgba(0, 55, 69, 0.95);
+}
+
+/* Gallery rounding without clipping zoom overlays too aggressively */
+.single-product .woocommerce div.product .woocommerce-product-gallery {
+  border-radius: 16px;
+  overflow: hidden; /* keeps zoom image inside the card */
+  background: #fff; /* white background when zoomed image moves */
+}
+
+.single-product .woocommerce-product-gallery__wrapper img,
+.single-product .woocommerce div.product .woocommerce-product-gallery .zoomImg {
+  border-radius: 16px;
+}
+
+/* Ensure gallery background doesn't show outside rounded corners while loading */
+.single-product .woocommerce div.product .woocommerce-product-gallery__wrapper {
+  margin: 0;
+  background: #fff;
+}
+
+/* Woo gallery viewport (FlexSlider) */
+.single-product .woocommerce div.product .flex-viewport {
+  background: #fff;
+}
+
+.single-product .woocommerce div.product .woocommerce-product-gallery__image {
+  background: #fff;
+}
+

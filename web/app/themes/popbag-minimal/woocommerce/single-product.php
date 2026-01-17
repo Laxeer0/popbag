@@ -17,7 +17,7 @@ if (post_password_required()) {
 			<?php the_post(); ?>
 			<div id="product-<?php the_ID(); ?>" <?php wc_product_class('grid gap-10 md:grid-cols-2', get_the_ID()); ?>>
 				<div class="space-y-4">
-					<div class="overflow-hidden rounded-[16px] border border-[#003745]/10 bg-white shadow-sm">
+					<div class="rounded-[16px] border border-[#003745]/10 bg-white shadow-sm">
 						<?php do_action('woocommerce_before_single_product_summary'); ?>
 					</div>
 				</div>
