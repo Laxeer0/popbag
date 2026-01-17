@@ -40,7 +40,7 @@ if ($product instanceof WC_Product) {
 }
 ?>
 
-<div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+<div class="mb-3 flex flex-wrap items-center gap-2 md:flex-nowrap">
 	<a href="<?php echo esc_url($back_url); ?>" class="inline-flex items-center gap-2 rounded-full border border-[#003745]/15 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#003745] transition hover:-translate-y-px hover:shadow-sm">
 		<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -50,11 +50,11 @@ if ($product instanceof WC_Product) {
 
 	<?php if ($cat_name) : ?>
 		<?php if ($cat_url) : ?>
-			<a href="<?php echo esc_url($cat_url); ?>" class="rounded-full border border-[#003745]/15 bg-[#003745]/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#003745]">
+			<a href="<?php echo esc_url($cat_url); ?>" class="ml-auto min-w-0 max-w-full truncate rounded-full border border-[#003745]/15 bg-[#003745]/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#003745] md:max-w-[320px]">
 				<?php echo esc_html($cat_name); ?>
 			</a>
 		<?php else : ?>
-			<span class="rounded-full border border-[#003745]/15 bg-[#003745]/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#003745]">
+			<span class="ml-auto min-w-0 max-w-full truncate rounded-full border border-[#003745]/15 bg-[#003745]/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#003745] md:max-w-[320px]">
 				<?php echo esc_html($cat_name); ?>
 			</span>
 		<?php endif; ?>

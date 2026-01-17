@@ -30,12 +30,10 @@ get_header('shop');
 			<?php woocommerce_product_loop_start(); ?>
 
 			<?php if (wc_get_loop_prop('total')) : ?>
-				<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-					<?php while (have_posts()) : ?>
-						<?php the_post(); ?>
-						<?php wc_get_template_part('content', 'product'); ?>
-					<?php endwhile; ?>
-				</div>
+				<?php while (have_posts()) : ?>
+					<?php the_post(); ?>
+					<?php wc_get_template_part('content', 'product'); ?>
+				<?php endwhile; ?>
 			<?php endif; ?>
 
 			<?php woocommerce_product_loop_end(); ?>

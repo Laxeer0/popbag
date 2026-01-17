@@ -126,7 +126,11 @@ add_filter('woocommerce_form_field_args', static function (array $args, string $
 add_filter('woocommerce_loop_add_to_cart_args', static function (array $args, WC_Product $product): array {
 	$classes = $args['class'] ?? 'button';
 
-	$args['class'] = trim($classes . ' w-full rounded-full bg-[#003745] px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:-translate-y-px hover:shadow-md');
+	$theme_btn = function_exists('popbag_button_classes')
+		? popbag_button_classes('secondary', 'md', 'w-full hover:bg-[#FF2030]')
+		: 'w-full rounded-full bg-[#003745] px-5 py-3 text-center text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:-translate-y-px hover:shadow-md';
+
+	$args['class'] = trim($classes . ' ' . $theme_btn);
 	$args['attributes'] = array_merge(
 		(array) ($args['attributes'] ?? []),
 		[
