@@ -10,7 +10,7 @@ $shop_url      = function_exists('wc_get_page_permalink') ? wc_get_page_permalin
 
 <main>
 	<section class="relative overflow-hidden bg-white">
-		<div class="mx-auto flex min-h-[calc(100svh-88px)] max-w-6xl flex-col justify-center gap-10 px-6 py-12 md:min-h-[70vh] md:flex-row md:items-center md:py-16">
+		<div class="mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center gap-10 px-6 py-12 md:min-h-[70vh] md:flex-row md:items-center md:py-16">
 			<div class="max-w-2xl space-y-4 text-center md:text-left">
 				<p class="text-xl font-extrabold uppercase tracking-[0.3em] text-[#F9E2B0] popbag-stroke-blue">Scopri la bag</p>
 				<h1 class="font-display text-5xl font-black leading-tight text-[#003745] popbag-stroke-yellow md:text-6xl">Crea la tua Bag</h1>
