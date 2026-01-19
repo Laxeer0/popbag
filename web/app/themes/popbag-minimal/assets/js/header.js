@@ -52,19 +52,36 @@
 
   // Mobile sub-menu toggles (accordion).
   const bindSubmenuToggles = () => {
-    const buttons = panel?.querySelectorAll('.popbag-submenu-toggle');
-    if (!buttons || !buttons.length) return;
+    const links = panel?.querySelectorAll('.popbag-mobile-nav li.popbag-has-dropdown > a');
+    if (!links || !links.length) return;
 
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const li = btn.closest('li');
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const li = link.closest('li');
         if (!li) return;
 
-        const isOpen = li.classList.toggle('is-open');
-        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        const href = (link.getAttribute('href') || '').trim();
+        const isRealLink = href !== '' && href !== '#' && !href.toLowerCase().startsWith('javascript:');
+        const isOpen = li.classList.contains('is-open');
+
+        // If the parent item has a real link:
+        // - first tap opens submenu (no navigation)
+        // - second tap navigates to the parent link
+        if (isRealLink && !isOpen) {
+          e.preventDefault();
+          e.stopPropagation();
+          li.classList.add('is-open');
+          link.setAttribute('aria-expanded', 'true');
+          return;
+        }
+
+        // If it's not a real link (or you want accordion behavior), toggle open/close.
+        if (!isRealLink) {
+          e.preventDefault();
+          e.stopPropagation();
+          const next = li.classList.toggle('is-open');
+          link.setAttribute('aria-expanded', next ? 'true' : 'false');
+        }
       });
     });
   };

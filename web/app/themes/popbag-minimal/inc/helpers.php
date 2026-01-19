@@ -175,11 +175,6 @@ class Popbag_Walker_Primary_Nav extends Walker_Nav_Menu {
 
 		$item_output .= '</a>';
 
-		if ($has_children && 0 === $depth) {
-			// Mobile-only submenu toggle (handled via JS on the mobile panel).
-			$item_output .= '<button type="button" class="popbag-submenu-toggle ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#003745]/15 bg-white text-[#003745] md:hidden" aria-label="' . esc_attr__('Toggle submenu', 'popbag-minimal') . '" aria-expanded="false"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></button>';
-		}
-
 		$item_output .= is_object($args) ? ($args->after ?? '') : '';
 
 		$output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
