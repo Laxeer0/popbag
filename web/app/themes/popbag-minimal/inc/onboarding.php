@@ -11,6 +11,53 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+/**
+ * Ensure required plugins are active when the theme is activated.
+ *
+ * NOTE: This runs independently from the "first-run" onboarding below (which may early-return).
+ */
+add_action('after_switch_theme', static function (): void {
+	// Theme activation happens in wp-admin, but keep it safe for edge cases (CLI/tests).
+	if (!function_exists('activate_plugin')) {
+		@include_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+	if (!function_exists('activate_plugin')) {
+		return;
+	}
+
+	// Only users who can activate plugins should trigger this.
+	if (function_exists('current_user_can') && !current_user_can('activate_plugins')) {
+		return;
+	}
+
+	$plugins = [
+		'woocommerce/woocommerce.php',
+		'sumup-payment-gateway-for-woocommerce/sumup-payment-gateway-for-woocommerce.php',
+		'goodtill-stock-sync/gtc-stock-sync.php',
+	];
+
+	foreach ($plugins as $plugin) {
+		$plugin_path = WP_PLUGIN_DIR . '/' . $plugin;
+		if (!file_exists($plugin_path)) {
+			continue;
+		}
+
+		$is_active = false;
+		if (function_exists('is_plugin_active') && is_plugin_active($plugin)) {
+			$is_active = true;
+		}
+		if (!$is_active && function_exists('is_plugin_active_for_network') && is_plugin_active_for_network($plugin)) {
+			$is_active = true;
+		}
+		if ($is_active) {
+			continue;
+		}
+
+		// Silent activation to avoid redirect noise.
+		activate_plugin($plugin, '', false, true);
+	}
+}, 5);
+
 add_action('after_switch_theme', static function (): void {
 	// If front page is already configured, do nothing.
 	$page_on_front = (int) get_option('page_on_front', 0);

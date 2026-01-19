@@ -62,7 +62,7 @@ $shop_url      = function_exists('wc_get_page_permalink') ? wc_get_page_permalin
 						<svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
 					</button>
 				</div>
-				<div class="swiper" style="overflow: visible;">
+				<div class="swiper overflow-hidden">
 					<div class="swiper-wrapper" style="padding-bottom: 18px;">
 						<?php if (!empty($bags)) : ?>
 							<?php foreach ($bags as $bag_post) : ?>

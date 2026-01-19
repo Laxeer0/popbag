@@ -28,9 +28,19 @@ add_action('wp_enqueue_scripts', static function (): void {
 		wp_enqueue_style('popbag-nav-dropdown', get_theme_file_uri($nav_css_rel), ['popbag-app'], (string) filemtime($nav_css_path));
 	}
 
-	// Swiper (CDN) for carousels in the mockup.
-	wp_enqueue_style('popbag-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', [], '11');
-	wp_enqueue_script('popbag-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', [], '11', true);
+	// Swiper for carousels (prefer local build, fallback to CDN).
+	$swiper_css_rel  = 'dist/vendor/swiper/swiper-bundle.min.css';
+	$swiper_css_path = get_theme_file_path($swiper_css_rel);
+	$swiper_js_rel   = 'dist/vendor/swiper/swiper-bundle.min.js';
+	$swiper_js_path  = get_theme_file_path($swiper_js_rel);
+
+	if (file_exists($swiper_css_path) && file_exists($swiper_js_path)) {
+		wp_enqueue_style('popbag-swiper', get_theme_file_uri($swiper_css_rel), [], (string) filemtime($swiper_css_path));
+		wp_enqueue_script('popbag-swiper', get_theme_file_uri($swiper_js_rel), [], (string) filemtime($swiper_js_path), true);
+	} else {
+		wp_enqueue_style('popbag-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', [], '11');
+		wp_enqueue_script('popbag-swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', [], '11', true);
+	}
 
 	$header_js_rel  = 'assets/js/header.js';
 	$header_js_path = get_theme_file_path($header_js_rel);
