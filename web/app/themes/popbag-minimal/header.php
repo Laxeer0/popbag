@@ -128,6 +128,25 @@ if (!defined('ABSPATH')) {
 				</button>
 			</div>
 			<nav class="popbag-mobile-nav px-5 py-4">
+				<?php if (!is_user_logged_in()) : ?>
+					<div class="mb-4 grid grid-cols-2 gap-2">
+						<a class="flex items-center justify-center gap-2 rounded-[14px] border border-[#003745]/10 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-[#003745]" href="<?php echo esc_url($myaccount_url); ?>">
+							<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15 3h4v4"></path>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M10 14 21 3"></path>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"></path>
+							</svg>
+							<span><?php esc_html_e('Login', 'woocommerce'); ?></span>
+						</a>
+						<a class="flex items-center justify-center gap-2 rounded-[14px] bg-[#003745] px-4 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-white" href="<?php echo esc_url($myaccount_url); ?>">
+							<svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14"></path>
+								<path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
+							</svg>
+							<span><?php esc_html_e('Register', 'woocommerce'); ?></span>
+						</a>
+					</div>
+				<?php endif; ?>
 				<?php
 				wp_nav_menu([
 					'theme_location' => 'primary',
