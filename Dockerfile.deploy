@@ -6,7 +6,11 @@ COPY . .
 
 RUN rm -f .env \
     && composer install --no-dev --prefer-dist --no-interaction --no-progress \
-        --optimize-autoloader
+        --optimize-autoloader \
+    && if [ -f web/app/plugins/apache-cache-purger/composer.json ]; then \
+        cd web/app/plugins/apache-cache-purger \
+        && composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader; \
+    fi
 
 FROM webdevops/php-nginx:8.2-alpine
 

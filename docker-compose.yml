@@ -31,6 +31,10 @@ services:
         echo "web/wp missing: running composer install...";
         composer install --no-interaction --prefer-dist;
       fi;
+      if [ -f web/app/plugins/apache-cache-purger/composer.json ] && [ ! -f web/app/plugins/apache-cache-purger/vendor/autoload.php ]; then
+        echo "Apache Cache Purger vendor missing: running composer install...";
+        (cd web/app/plugins/apache-cache-purger && composer install --no-interaction --prefer-dist --no-progress);
+      fi;
       php-fpm'
     volumes:
       - ./:/var/www/html

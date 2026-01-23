@@ -1,7 +1,15 @@
 # Application
 web/app/plugins/*
 !web/app/plugins/.gitkeep
+!web/app/plugins/apache-cache-purger/
+!web/app/plugins/apache-cache-purger/**
+
+web/app/mu-plugins/bedrock-disallow-indexing/*
+!web/app/mu-plugins/poppins-bags/*
 web/app/mu-plugins/*/
+!web/app/mu-plugins/*.php
+
+
 web/app/themes/twentytwentyfive/
 web/app/upgrade
 web/app/uploads/*
