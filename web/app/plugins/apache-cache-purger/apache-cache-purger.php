@@ -19,6 +19,7 @@ if (is_readable($autoload)) {
 }
 
 if (class_exists(\MUACP\Bootstrap::class)) {
-    \MUACP\Bootstrap::run();
+    // Defer bootstrap: pluggable functions (es. is_user_logged_in) non sono disponibili durante l'include del plugin.
+    add_action('plugins_loaded', [\MUACP\Bootstrap::class, 'run'], 20);
 }
 

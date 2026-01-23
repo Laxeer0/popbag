@@ -21,6 +21,10 @@ final class AdminBar
             return;
         }
 
+        if (function_exists('is_admin_bar_showing') && !is_admin_bar_showing()) {
+            return;
+        }
+
         if (!current_user_can($this->purger->capability())) {
             return;
         }
@@ -64,6 +68,11 @@ final class AdminBar
     private function resolveContextPostId(): int
     {
         if (!is_admin()) {
+            // Evita notice "conditional query tags ... before the query is run".
+            if (did_action('wp') === 0) {
+                return 0;
+            }
+
             if (function_exists('is_singular') && is_singular(['post', 'page', 'product'])) {
                 return (int) get_queried_object_id();
             }

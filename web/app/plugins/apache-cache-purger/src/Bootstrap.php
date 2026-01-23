@@ -31,11 +31,10 @@ final class Bootstrap
             (new ListTableActions($purger))->register();
         }
 
-        if (function_exists('is_admin_bar_showing') && is_admin_bar_showing()) {
-            (new AdminBar($purger))->register();
-        }
+        // Registra sempre: il check su visibilità/capability avviene nel callback e dopo che WP è pronto.
+        (new AdminBar($purger))->register();
 
-        if (defined('WP_CLI') && WP_CLI) {
+        if (\defined('WP_CLI') && (bool) \constant('WP_CLI')) {
             Cli::register($purger);
         }
     }
